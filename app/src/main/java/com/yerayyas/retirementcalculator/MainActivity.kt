@@ -40,10 +40,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppCenter.start(application, "e28bc679-d80e-4b7c-bc27-9e86adee244c", Analytics::class.java, Crashes::class.java)
+            AppCenter.start(
+                application,
+                "e28bc679-d80e-4b7c-bc27-9e86adee244c",
+                Analytics::class.java,
+                Crashes::class.java
+            )
             RetirementCalculatorTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        RetirementScreen(modifier = Modifier.padding(paddingValues = innerPadding))
+                    RetirementScreen(modifier = Modifier.padding(paddingValues = innerPadding))
 
                 }
             }
@@ -136,20 +141,36 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
         // Botón CALCULATE
         Button(
             onClick = {
-                val elInteres = interestRate.toFloat()
-                val laEdadActual = currentAge.toInt()
-                val laEdadDePension = plannedRetirementAge.toInt()
-                if (elInteres <= 0){
-                    Analytics.trackEvent("wrong_interest_rate")
-                }
-                if (laEdadDePension <= laEdadActual){
-                    Analytics.trackEvent("wrong_age")
+
+                try {
+                    val elInteres = interestRate.toFloat()
+                    val laEdadActual = currentAge.toInt()
+                    val laEdadDePension = plannedRetirementAge.toInt()
+                    val ahorrosMensuales = monthlySavings.toFloat()
+                    val ahorrosActuales = currentSavings.toFloat()
+
+                    val properties: HashMap<String, String> = HashMap<String, String>()
+                    properties.put("interes_rate", elInteres.toString())
+                    properties.put("edad_actual", laEdadActual.toString())
+                    properties.put("edad_pension", laEdadDePension.toString())
+                    properties.put("ahorro_mensual", ahorrosMensuales.toString())
+                    properties.put("ahorro_actual", ahorrosActuales.toString())
+
+                    if (elInteres <= 0) {
+                        Analytics.trackEvent("wrong_interest_rate", properties)
+                    }
+                    if (laEdadDePension <= laEdadActual) {
+                        Analytics.trackEvent("wrong_age", properties)
+                    }
+                } catch (e: Exception) {
+                    Analytics.trackEvent(e.message)
                 }
                 //Crashes.generateTestCrash()
                 // por ahora solo ocultamos teclado y dejamos resultText vacío
                 focusManager.clearFocus()
                 // Si quieres, aquí puedes ejecutar el cálculo y asignar a resultText
-                 resultText = "At this rate, with your current monthly savings, you will have $1,000,000 by 65."
+                resultText =
+                    "At this rate, with your current monthly savings, you will have $1,000,000 by 65."
             },
             modifier = Modifier
                 .fillMaxWidth()
