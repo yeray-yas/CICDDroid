@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppCenter.start(
                 application,
-                "e28bc679-d80e-4b7c-bc27-9e86adee244c",
+                "114fd597-dfe2-4183-a50c-a23a28f15de6",
                 Analytics::class.java,
                 Crashes::class.java
             )
