@@ -28,7 +28,7 @@ jobs:
           APPCENTER_TOKEN: ${{ secrets.APPCENTER_TOKEN }}
         run: |
           appcenter distribute release \
-            --app "TU_ORG/TU_APP" \
+            --app "yerayyas/CICDDroid" \
             --group "Testers" \
             --file app/build/outputs/apk/debug/app-debug.apk \
             --release-notes "Build from GitHub Actions"
