@@ -162,7 +162,7 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
                     if (laEdadDePension <= laEdadActual) {
                         Analytics.trackEvent("wrong_age", properties)
                     }
-                    resultText = "At the current rate of $elInteres%, saving $ahorrosMensuales € al mes."
+                    resultText = "At the current rate... of $elInteres%, saving $ahorrosMensuales € al mes."
                 } catch (e: Exception) {
                     Analytics.trackEvent(e.message)
                 }
