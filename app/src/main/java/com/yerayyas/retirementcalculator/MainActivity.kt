@@ -85,7 +85,7 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
             value = monthlySavings,
             onValueChange = { monthlySavings = it },
             label = { Text("Monthly savings") },
-            placeholder = { Text("Introduce cantidad mensual") },
+            placeholder = { Text("Introduce una cantidad mensual") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 6.dp),
