@@ -85,7 +85,7 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
             value = monthlySavings,
             onValueChange = { monthlySavings = it },
             label = { Text("Monthly savings") },
-            placeholder = { Text("Introduce cantidad mensual") },
+            placeholder = { Text("Introduce una cantidad mensual") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 6.dp),
@@ -162,6 +162,7 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
                     if (laEdadDePension <= laEdadActual) {
                         Analytics.trackEvent("wrong_age", properties)
                     }
+                    resultText = "At the current rate... of $elInteres%, saving $ahorrosMensuales € al mes."
                 } catch (e: Exception) {
                     Analytics.trackEvent(e.message)
                 }
@@ -169,8 +170,7 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
                 // por ahora solo ocultamos teclado y dejamos resultText vacío
                 focusManager.clearFocus()
                 // Si quieres, aquí puedes ejecutar el cálculo y asignar a resultText
-                resultText =
-                    "At this rate, with your current monthly savings, you will have $1,000,000 by 65."
+
             },
             modifier = Modifier
                 .fillMaxWidth()
