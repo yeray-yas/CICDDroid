@@ -49,7 +49,6 @@ class MainActivity : ComponentActivity() {
             RetirementCalculatorTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     RetirementScreen(modifier = Modifier.padding(paddingValues = innerPadding))
-
                 }
             }
         }
@@ -162,7 +161,8 @@ fun RetirementScreen(modifier: Modifier = Modifier) {
                     if (laEdadDePension <= laEdadActual) {
                         Analytics.trackEvent("wrong_age", properties)
                     }
-                    resultText = "At the current rate... of $elInteres%, saving $ahorrosMensuales € monthly, you will have the amount of $ahorrosActuales € in your retirement account by the age of $laEdadDePension."
+                    resultText =
+                        "At the current rate... of $elInteres%, saving $ahorrosMensuales € monthly, you will have the amount of $ahorrosActuales € in your retirement account by the age of $laEdadDePension."
                 } catch (e: Exception) {
                     Analytics.trackEvent(e.message)
                 }
